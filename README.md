@@ -121,8 +121,6 @@ unitree@PC2:~$ source ~/miniconda3/bin/activate
 (base) unitree@PC2:~$ conda create -n tv python=3.10 pinocchio=3.1.0 numpy=1.26.4 -c conda-forge
 (base) unitree@PC2:~$ conda activate tv
 
-(base) unitree@PC2:~$ conda create -n tv python=3.10 pinocchio=3.1.0 numpy=1.26.4 -c conda-forge
-(base) unitree@PC2:~$ conda activate tv
 # Clone this repo
 (tv) unitree@PC2:~$ git clone https://github.com/unitreerobotics/xr_teleoperate.git
 (tv) unitree@PC2:~$ cd xr_teleoperate
@@ -207,15 +205,22 @@ build  cert.pem  key.pem  LICENSE  pyproject.toml  README.md  rootCA.key  rootCA
 
 ## 1.2 🕹️ unitree_sdk2_python
 ```bash
+# 情况1： 默认情况下，G1自带了cyclonedds_ws，此时可以直接安装unitree_sdk2_python
+(tv) unitree@PC2:~$ git clone https://github.com/unitreerobotics/unitree_sdk2_python.git
+(tv) unitree@PC2:~$ cd unitree_sdk2_python
+(tv) unitree@PC2:~$ export CYCLONEDDS_HOME=~/cyclonedds_ws/install/cyclonedds
+(tv) unitree@PC2:~/unitree_sdk2_python$ pip install -e .
+
+```
+
+```bash
+# 情况2： 如果G1没有自带cyclonedds_ws，需要手动安装cyclonedds，再安装unitree_sdk2_python
 cd ~
 git clone https://github.com/eclipse-cyclonedds/cyclonedds -b releases/0.10.x 
 cd cyclonedds && mkdir build install && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=../install
 cmake --build . --target install
-```
 
-```bash
-# Install unitree_sdk2_python library which handles communication with the robot
 (tv) unitree@PC2:~$ git clone https://github.com/unitreerobotics/unitree_sdk2_python.git
 (tv) unitree@PC2:~$ cd unitree_sdk2_python
 (tv) unitree@PC2:~$ export CYCLONEDDS_HOME=~/cyclonedds/install
